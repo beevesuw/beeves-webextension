@@ -7,7 +7,7 @@
   "manifest_version": 2,
   "name": "Runtime examples",
   "version": "1.0",
-  "permissions": ["notifications"],
+  "permissions": ["notifications", "http://localhost:5000/*", "*://postman-echo.com/*", "webRequest", "<all_urls>"],
   "background": {
     "scripts": ["background.js"]
   },

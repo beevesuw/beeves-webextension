@@ -1,28 +1,61 @@
-let loadTime = new Date();
 let manifest = browser.runtime.getManifest();
-let url = browser.extension.getURL("beeves.json");
 
-console.log(url);
+// function onInstalledNotification(details) {
+//   browser.notifications.create('onInstalled', {
+//     title: `Beeves enabled webextension: ${manifest.version}`,
+//     message: `Beeves enabled webextension has been loaded successfully!`,
+//     type: 'basic'
+//   });
+// }
+//browser.runtime.onInstalled.addListener(onInstalledNotification);
 
-fetch(url)
-.then(res => res.json())
-.then((out) => {
-  console.log('Checkout this JSON! ', out);
-})
-.catch(err => { throw err });
-
-
-function onInstalledNotification(details) {
-  browser.notifications.create('onInstalled', {
-    title: `Runtime Examples version: ${manifest.version}`,
-    message: `onInstalled has been called, background page loaded at ${loadTime.getHours()}:${loadTime.getMinutes()}`,
-    type: 'basic'
-  });
+async function getTextData(endpoint) {
+  try {
+    let res = await fetch(endpoint);
+    res = await res.text();
+    console.log(res);
+    return res;
+    }catch(err) {
+      console.log(err);
+    }
 }
 
-function onClick() {
-  browser.runtime.reload();
+async function getJSONData(endpoint) {
+  try {
+  let res = await fetch(endpoint);
+  res = await res.json();
+  console.log(res);
+  return res;
+  }catch(err) {
+    console.log(err);
+  }
 }
 
-browser.browserAction.onClicked.addListener(onClick);
-browser.runtime.onInstalled.addListener(onInstalledNotification);
+async function postData(endpoint, payload) {
+  try {
+    let res = await fetch(endpoint, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    res = await res.json();
+    console.log(res);
+    return res;
+  }catch(err) {
+    console.log(err);
+  }
+}
+
+let beevesFileEndpoint = browser.extension.getURL("beeves.json");
+let postmanEndpoint = 'https://postman-echo.com/post';
+let backendMockEndpoint = 'http://localhost:8080/';
+
+getJSONData(beevesFileEndpoint)
+.then((beevesJSON) => {
+  postData(postmanEndpoint, beevesJSON);
+});
+
+getTextData(backendMockEndpoint);
