@@ -2,10 +2,10 @@
   "browser_action": {
     "default_icon": "run.png"
   },
-  "description": "Demonstration of some runtime APIs",
+  "description": "A BEEVES compatible webextension",
   "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/runtime-examples",
   "manifest_version": 2,
-  "name": "Runtime examples",
+  "name": "beeves_webextensions",
   "version": "1.0",
   "permissions": ["notifications", "http://localhost:5000/*", "*://postman-echo.com/*", "webRequest", "<all_urls>"],
   "background": {

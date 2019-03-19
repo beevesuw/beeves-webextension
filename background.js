@@ -9,6 +9,12 @@ let manifest = browser.runtime.getManifest();
 // }
 //browser.runtime.onInstalled.addListener(onInstalledNotification);
 
+// function onMessageRecieved(message, sender){
+//   console.log(message);
+//   consoel.log(sender);
+// }
+// browser.runtime.onMessage.addListener(onMessageRecieved);
+
 async function getTextData(endpoint) {
   try {
     let res = await fetch(endpoint);
@@ -49,6 +55,8 @@ async function postData(endpoint, payload) {
   }
 }
 
+
+
 let beevesFileEndpoint = browser.extension.getURL("beeves.json");
 let postmanEndpoint = 'https://postman-echo.com/post';
 let backendMockEndpoint = 'http://localhost:8080/';
@@ -59,3 +67,5 @@ getJSONData(beevesFileEndpoint)
 });
 
 getTextData(backendMockEndpoint);
+
+console.log(browser.beeves.hello());
