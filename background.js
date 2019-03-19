@@ -1,4 +1,4 @@
-let manifest = browser.runtime.getManifest();
+//let manifest = browser.runtime.getManifest();
 
 // function onInstalledNotification(details) {
 //   browser.notifications.create('onInstalled', {
@@ -59,13 +59,13 @@ async function postData(endpoint, payload) {
 
 let beevesFileEndpoint = browser.extension.getURL("beeves.json");
 let postmanEndpoint = 'https://postman-echo.com/post';
-let backendMockEndpoint = 'http://localhost:8080/';
+//let backendMockEndpoint = 'http://localhost:8080/';
 
 getJSONData(beevesFileEndpoint)
 .then((beevesJSON) => {
   postData(postmanEndpoint, beevesJSON);
 });
 
-getTextData(backendMockEndpoint);
+//getTextData(backendMockEndpoint);
 
-console.log(browser.beeves.hello());
+console.log(beevesFileEndpoint);
