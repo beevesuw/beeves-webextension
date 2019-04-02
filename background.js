@@ -1,20 +1,15 @@
-//let manifest = browser.runtime.getManifest();
+const beevesFileEndpoint = browser.extension.getURL("beeves.json");
+const postmanEndpoint = 'https://postman-echo.com/post';
+//const backendMockEndpoint = 'http://localhost:8080/';
 
-// function onInstalledNotification(details) {
-//   browser.notifications.create('onInstalled', {
-//     title: `Beeves enabled webextension: ${manifest.version}`,
-//     message: `Beeves enabled webextension has been loaded successfully!`,
-//     type: 'basic'
-//   });
-// }
-//browser.runtime.onInstalled.addListener(onInstalledNotification);
+function log(message){
+  console.log("-----------------------");
+  console.log("beeves-extension says:");
+  console.log(message);
+  console.log("-----------------------");
+}
 
-// function onMessageRecieved(message, sender){
-//   console.log(message);
-//   consoel.log(sender);
-// }
-// browser.runtime.onMessage.addListener(onMessageRecieved);
-
+//retrieve from an endpoint and return text
 async function getTextData(endpoint) {
   try {
     let res = await fetch(endpoint);
@@ -26,6 +21,7 @@ async function getTextData(endpoint) {
     }
 }
 
+//retrieve from an endpoint and return json 
 async function getJSONData(endpoint) {
   try {
   let res = await fetch(endpoint);
@@ -37,6 +33,7 @@ async function getJSONData(endpoint) {
   }
 }
 
+//post data to an endpoint
 async function postData(endpoint, payload) {
   try {
     let res = await fetch(endpoint, {
@@ -55,17 +52,12 @@ async function postData(endpoint, payload) {
   }
 }
 
-
-
-let beevesFileEndpoint = browser.extension.getURL("beeves.json");
-let postmanEndpoint = 'https://postman-echo.com/post';
-//let backendMockEndpoint = 'http://localhost:8080/';
-
-getJSONData(beevesFileEndpoint)
-.then((beevesJSON) => {
-  postData(postmanEndpoint, beevesJSON);
+//send base extension the beevesfile when installed
+browser.runtime.onInstalled.addListener(async function(details){
+  let beevesJSON = await getJSONData(beevesFileEndpoint);
+  let sending = await browser.runtime.sendMessage(
+    'base@beeves.com',
+    beevesJSON,
+    {}
+  );
 });
-
-//getTextData(backendMockEndpoint);
-
-console.log(beevesFileEndpoint);

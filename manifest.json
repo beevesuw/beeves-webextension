@@ -1,7 +1,4 @@
 {
-  "browser_action": {
-    "default_icon": "run.png"
-  },
   "description": "A BEEVES compatible webextension",
   "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/runtime-examples",
   "manifest_version": 2,
@@ -11,7 +8,9 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "icons": {
-    "128": "run.png"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "extension@beeves.com"
+    }
   }
 }
