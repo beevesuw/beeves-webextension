@@ -63,16 +63,17 @@ browser.runtime.onInstalled.addListener(async function(details){
   //log(sending);
 });
 
-browser.runtime.onMessageExternal.addListener(function(message, sender){
-  log(message);
-});
+browser.runtime.onMessageExternal.addListener(messageHandler);
 
-// async function messageHandler(message, sender, sendResponse){
-//     if(message['type'] == 'beevesRPC'){
-//         response = await beevesInvoker(message);
-//         sendResponse(response);
-//     }
-// }
+async function messageHandler(message, sender, sendResponse){
+    // if(message['type'] == 'beevesRPC'){
+    //     response = await beevesInvoker(message);
+    //     sendResponse(response);
+    // }
+    log(message);
+    //sendResponse({'ok': 'computer'});
+    return Promise.resolve({'ok':'computer'});
+}
 
 // async function beevesInvoker(message){
 //     let result = await beevesFunctions[message['functionName']].apply(message['arguments']);
