@@ -14,10 +14,10 @@ async function getTextData(endpoint) {
   try {
     let res = await fetch(endpoint);
     res = await res.text();
-    console.log(res);
+    //log(res);
     return res;
     }catch(err) {
-      console.log(err);
+      log(err);
     }
 }
 
@@ -26,10 +26,10 @@ async function getJSONData(endpoint) {
   try {
   let res = await fetch(endpoint);
   res = await res.json();
-  console.log(res);
+  //log(res);
   return res;
   }catch(err) {
-    console.log(err);
+    log(err);
   }
 }
 
@@ -45,10 +45,10 @@ async function postData(endpoint, payload) {
       body: JSON.stringify(payload)
     });
     res = await res.json();
-    console.log(res);
+    //log(res);
     return res;
   }catch(err) {
-    console.log(err);
+    log(err);
   }
 }
 
@@ -60,4 +60,28 @@ browser.runtime.onInstalled.addListener(async function(details){
     beevesJSON,
     {}
   );
+  //log(sending);
 });
+
+browser.runtime.onMessageExternal.addListener(function(message, sender){
+  log(message);
+});
+
+// async function messageHandler(message, sender, sendResponse){
+//     if(message['type'] == 'beevesRPC'){
+//         response = await beevesInvoker(message);
+//         sendResponse(response);
+//     }
+// }
+
+// async function beevesInvoker(message){
+//     let result = await beevesFunctions[message['functionName']].apply(message['arguments']);
+//     return Promise.resolve(result);
+// }
+
+// beevesFunctions = {
+//     test: function(arg){
+//         log(`beevesRPC works! data: ${arg}`);
+//         return 'done';
+//     }
+// };

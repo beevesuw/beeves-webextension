@@ -1,146 +1,132 @@
 {
     "beeves": {
-        "some": "data",
-        "has": "been",
+        "extension_name": "arithmetic",
+        "hotword": "arithmetic",
         "put": "here",
         "by": "me"
     },
     "snips" : {
-        "entities": {
-          "beverage_type": {
-            "automatically_extensible": true,
-            "data": [
-              {
-                "value": "espresso",
-                "synonyms": [
-                  "espressi",
-                  "espressos",
-                  "expresso",
-                  "expressos"
-                ]
-              }
-            ],
-            "matching_strictness": 1.0,
-            "use_synonyms": true
-          },
-          "snips/number": {}
-        },
         "intents": {
-          "prepareBeverage": {
+          "add": {
             "utterances": [
               {
                 "data": [
                   {
-                    "text": "Make me "
+                    "text": "add "
                   },
                   {
                     "entity": "snips/number",
-                    "slot_name": "number_of_cups",
-                    "text": "two"
+                    "slot_name": "operand1",
+                    "range": {
+                      "start": 1,
+                      "end": 99
+                    }
                   },
                   {
-                    "text": " cups of "
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "cappucino"
-                  },
-                  {
-                    "text": " please"
-                  }
-                ]
-              },
-              {
-                "data": [
-                  {
-                    "text": "Please prepare a cup of "
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "tea"
-                  }
-                ]
-              },
-              {
-                "data": [
-                  {
-                    "text": "I'd like to have "
+                    "text": " and "
                   },
                   {
                     "entity": "snips/number",
-                    "slot_name": "number_of_cups",
-                    "text": "one"
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "strong latte"
+                    "slot_name": "operand2",
+                    "range": {
+                      "start": 1,
+                      "end": 99
+                    }
                   }
                 ]
-              },
+              }
+            ]
+          },
+          "subtract": {
+            "utterances": [
               {
                 "data": [
                   {
-                    "text": "can you make an "
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "espresso"
-                  },
-                  {
-                    "text": " please ?"
-                  }
-                ]
-              },
-              {
-                "data": [
-                  {
-                    "text": "serve "
+                    "text": "subtract "
                   },
                   {
                     "entity": "snips/number",
-                    "slot_name": "number_of_cups",
-                    "text": "three"
+                    "slot_name": "operand1",
+                    "range": {
+                      "start": 1,
+                      "end": 99
+                    }
                   },
                   {
-                    "text": " cups of "
+                    "text": " from "
                   },
                   {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "tea with milk"
-                  }
-                ]
-              },
-              {
-                "data": [
-                  {
-                    "text": "make me a "
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "coffee"
-                  }
-                ]
-              },
-              {
-                "data": [
-                  {
-                    "text": "I want a "
-                  },
-                  {
-                    "entity": "beverage_type",
-                    "slot_name": "beverage_type",
-                    "text": "tea"
+                    "entity": "snips/number",
+                    "slot_name": "operand2",
+                    "range": {
+                      "start": 1,
+                      "end": 99
+                    }
                   }
                 ]
               }
             ]
           }
+        },
+        "multiply": {
+          "utterances": [
+            {
+              "data": [
+                {
+                  "text": "multiply "
+                },
+                {
+                  "entity": "snips/number",
+                  "slot_name": "operand1",
+                  "range": {
+                    "start": 1,
+                    "end": 99
+                  }
+                },
+                {
+                  "text": " and "
+                },
+                {
+                  "entity": "snips/number",
+                  "slot_name": "operand2",
+                  "range": {
+                    "start": 1,
+                    "end": 99
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "add": {
+          "utterances": [
+            {
+              "data": [
+                {
+                  "text": "divide "
+                },
+                {
+                  "entity": "snips/number",
+                  "slot_name": "operand1",
+                  "range": {
+                    "start": 1,
+                    "end": 99
+                  }
+                },
+                {
+                  "text": " by "
+                },
+                {
+                  "entity": "snips/number",
+                  "slot_name": "operand2",
+                  "range": {
+                    "start": 1,
+                    "end": 99
+                  }
+                }
+              ]
+            }
+          ]
         },
         "language": "en"
       }
