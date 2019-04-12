@@ -69,7 +69,7 @@ async function messageHandler(message, sender, sendResponse){
         response = await beevesInvoker(message);
         return Promise.resolve(response);
     }
-    //return Promise.resolve(false);
+    return Promise.resolve('invalid message');
 }
 
 async function beevesInvoker(message){
@@ -78,9 +78,21 @@ async function beevesInvoker(message){
 }
 
 beevesFunctions = {
+    newFunction: function(name, func){
+      this[name] = func;
+    },
     test: function(arg){
-        log(`beevesRPC works! data: ${arg}`);
-        return true;
+      log(`beevesRPC works! data: ${arg}`);
+      return true;
     }
 };
 
+beevesFunctions.newFunction('add', function(n1, n2){
+  log(n1+n2);
+  return n1+n2;
+});
+
+beevesFunctions.newFunction('subtract', function(n1, n2){
+  log(n1-n2);
+  return n1-n2;
+});
