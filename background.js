@@ -60,29 +60,27 @@ browser.runtime.onInstalled.addListener(async function(details){
     beevesJSON,
     {}
   );
-  //log(sending);
 });
 
 browser.runtime.onMessageExternal.addListener(messageHandler);
 
 async function messageHandler(message, sender, sendResponse){
-    // if(message['type'] == 'beevesRPC'){
-    //     response = await beevesInvoker(message);
-    //     sendResponse(response);
-    // }
-    log(message);
-    //sendResponse({'ok': 'computer'});
-    return Promise.resolve({'ok':'computer'});
+    if(message['type'] == 'beevesRPC'){
+        response = await beevesInvoker(message);
+        return Promise.resolve(response);
+    }
+    //return Promise.resolve(false);
 }
 
-// async function beevesInvoker(message){
-//     let result = await beevesFunctions[message['functionName']].apply(message['arguments']);
-//     return Promise.resolve(result);
-// }
+async function beevesInvoker(message){
+  let result = await beevesFunctions[message['functionName']].apply(globalThis, message['arguments']);
+  return Promise.resolve(result);
+}
 
-// beevesFunctions = {
-//     test: function(arg){
-//         log(`beevesRPC works! data: ${arg}`);
-//         return 'done';
-//     }
-// };
+beevesFunctions = {
+    test: function(arg){
+        log(`beevesRPC works! data: ${arg}`);
+        return true;
+    }
+};
+
