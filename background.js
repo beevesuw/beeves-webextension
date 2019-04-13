@@ -5,7 +5,7 @@ const postmanEndpoint = 'https://postman-echo.com/post';
 //const backendMockEndpoint = 'http://localhost:8080/';
 
 //retrieve from an endpoint and return json 
-async function getJSONData(endpoint) {
+Beeves.getJSONData = async function(endpoint) {
   try {
   let res = await fetch(endpoint);
   res = await res.json();
@@ -15,7 +15,6 @@ async function getJSONData(endpoint) {
     console.log(err);
   }
 }
-
 
 Beeves.messageHandler = async function(message, sender, sendResponse){
     if(message['type'] == 'beevesRPC'){
@@ -43,7 +42,7 @@ Beeves.newFunction = function(name, func){
 
 Beeves.init = function(){
   browser.runtime.onInstalled.addListener(async function(details){
-    let beevesJSON = await getJSONData(Beeves.beevesFileEndpoint);
+    let beevesJSON = await Beeves.getJSONData(Beeves.beevesFileEndpoint);
     let sending = await browser.runtime.sendMessage(
       'base@beeves.com',
       beevesJSON,
