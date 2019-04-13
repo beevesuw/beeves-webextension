@@ -1,4 +1,6 @@
-const beevesFileEndpoint = browser.extension.getURL("beeves.json");
+let Beeves = {};
+
+Beeves.beevesFileEndpoint = browser.extension.getURL("beeves.json");
 const postmanEndpoint = 'https://postman-echo.com/post';
 //const backendMockEndpoint = 'http://localhost:8080/';
 
@@ -54,7 +56,7 @@ async function postData(endpoint, payload) {
 
 //send base extension the beevesfile when installed
 browser.runtime.onInstalled.addListener(async function(details){
-  let beevesJSON = await getJSONData(beevesFileEndpoint);
+  let beevesJSON = await getJSONData(Beeves.beevesFileEndpoint);
   let sending = await browser.runtime.sendMessage(
     'base@beeves.com',
     beevesJSON,
@@ -73,11 +75,11 @@ async function messageHandler(message, sender, sendResponse){
 }
 
 async function beevesInvoker(message){
-  let result = await beevesFunctions[message['functionName']].apply(globalThis, message['arguments']);
+  let result = await Beeves.beevesFunctions[message['functionName']].apply(globalThis, message['arguments']);
   return Promise.resolve(result);
 }
 
-beevesFunctions = {
+Beeves.beevesFunctions = {
     newFunction: function(name, func){
       this[name] = func;
     },
@@ -87,12 +89,13 @@ beevesFunctions = {
     }
 };
 
-beevesFunctions.newFunction('add', function(n1, n2){
+Beeves.beevesFunctions.newFunction('add', function(n1, n2){
   log(n1+n2);
   return n1+n2;
 });
 
-beevesFunctions.newFunction('subtract', function(n1, n2){
+Beeves.beevesFunctions.newFunction('subtract', function(n1, n2){
   log(n1-n2);
   return n1-n2;
 });
+
