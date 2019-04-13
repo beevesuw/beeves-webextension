@@ -19,13 +19,13 @@ async function getJSONData(endpoint) {
 
 Beeves.messageHandler = async function(message, sender, sendResponse){
     if(message['type'] == 'beevesRPC'){
-        response = await beevesInvoker(message);
+        response = await Beeves.beevesInvoker(message);
         return Promise.resolve(response);
     }
     return Promise.resolve('invalid message');
 }
 
-async function beevesInvoker(message){
+Beeves.beevesInvoker = async function(message){
   let result = await Beeves.beevesFunctions[message['functionName']].apply(globalThis, message['arguments']);
   return Promise.resolve(result);
 }
