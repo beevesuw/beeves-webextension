@@ -1,8 +1,6 @@
 let Beeves = {};
 
 Beeves.beevesFileEndpoint = browser.extension.getURL("beeves.json");
-const postmanEndpoint = 'https://postman-echo.com/post';
-//const backendMockEndpoint = 'http://localhost:8080/';
 
 //retrieve from an endpoint and return json 
 Beeves.getJSONData = async function(endpoint) {
@@ -11,6 +9,24 @@ Beeves.getJSONData = async function(endpoint) {
   res = await res.json();
   //log(res);
   return res;
+  }catch(err) {
+    console.log(err);
+  }
+}
+
+async function postData(endpoint, payload) {
+  try {
+    let res = await fetch(endpoint, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+    res = await res.json();
+    //log(res);
+    return res;
   }catch(err) {
     console.log(err);
   }
@@ -50,15 +66,19 @@ Beeves.init = function(){
     );
   });
   browser.runtime.onMessageExternal.addListener(this.messageHandler);
-  Beeves.newFunction('add', function(n1, n2){
-    console.log(n1+n2);
-    return n1+n2;
+  Beeves.newFunction('setLightColor', function(room, color){
+    console.log(`${room} light color set to ${color}.`);
+    return true;
   });
   
-  Beeves.newFunction('subtract', function(n1, n2){
-    console.log(n1-n2);
-    return n1-n2;
+  Beeves.newFunction('setLightOff', function(room){
+    console.log(`${room} light switched off.`);
+    return true;
   });
+
+  Beeves.newFunction('setLightOn', function(room){
+    console.log(`${room} light switched on.`)
+  })
 }
 
 Beeves.init();
