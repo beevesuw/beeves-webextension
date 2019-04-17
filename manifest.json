@@ -6,7 +6,7 @@
   "version": "1.0",
   "permissions": ["notifications", "http://localhost:5000/*", "*://postman-echo.com/*", "webRequest", "<all_urls>", "storage"],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "beeves.js"]
   },
   "browser_specific_settings": {
     "gecko": {
