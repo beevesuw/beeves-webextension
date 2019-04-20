@@ -70,14 +70,12 @@ Beeves.init = function(){
     console.log(`${room} light color set to ${color}.`);
     return true;
   });
-  
   Beeves.newFunction('turnLightOff', function(room){
-    console.log(`${room} light switched off.`);
-    return true;
+  console.log(`${room} light switched off.`);
+  return true;
   });
-
   Beeves.newFunction('turnLightOn', function(room){
-    console.log(`${room} light switched on.`)
+  console.log(`${room} light switched on.`)
   });
 }
 
